@@ -46,28 +46,28 @@ public final class RegionUtils {
     private static final boolean IS_CHINA_MAINLAND_MACHINE = checkMachineIsChinaMainland();
 
     private static boolean checkMachineIsChinaMainland() {
-        if ("Asia/Shanghai".equals(ZoneId.systemDefault().getId()))
-            return true;
+        // if ("Asia/Shanghai".equals(ZoneId.systemDefault().getId()))
+        //     return true;
 
-        // Check if the time zone is UTC+8
-        if (ZonedDateTime.now().getOffset().getTotalSeconds() == Duration.ofHours(8).toSeconds()) {
-            if ("CN".equals(LocaleUtils.SYSTEM_DEFAULT.getCountry()))
-                return true;
+        // // Check if the time zone is UTC+8
+        // if (ZonedDateTime.now().getOffset().getTotalSeconds() == Duration.ofHours(8).toSeconds()) {
+        //     if ("CN".equals(LocaleUtils.SYSTEM_DEFAULT.getCountry()))
+        //         return true;
 
-            if (OperatingSystem.CURRENT_OS == OperatingSystem.WINDOWS && NativeUtils.USE_JNA) {
-                Kernel32 kernel32 = Kernel32.INSTANCE;
+        //     if (OperatingSystem.CURRENT_OS == OperatingSystem.WINDOWS && NativeUtils.USE_JNA) {
+        //         Kernel32 kernel32 = Kernel32.INSTANCE;
 
-                // https://learn.microsoft.com/windows/win32/intl/table-of-geographical-locations
-                if (kernel32 != null && kernel32.GetUserGeoID(WinConstants.GEOCLASS_NATION) == 45) // China
-                    return true;
-            }
-        }
+        //         // https://learn.microsoft.com/windows/win32/intl/table-of-geographical-locations
+        //         if (kernel32 != null && kernel32.GetUserGeoID(WinConstants.GEOCLASS_NATION) == 45) // China
+        //             return true;
+        //     }
+        // }
 
         return false;
     }
 
     public static boolean isIsChinaMainlandMachine() {
-        return false;
+        return IS_CHINA_MAINLAND_MACHINE;
     }
 
     private static volatile @Nullable Boolean isChinaMainlandNetwork;
